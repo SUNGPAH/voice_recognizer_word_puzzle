@@ -8,12 +8,15 @@ recognition.continuous = true;
 recognition.lang = 'en-US';
 recognition.interimResults = true;
 recognition.maxAlternatives = 1;
+console.log('recognition global variable');
 
 export const useRecognizer = () => {
-
+  console.log('use recognizer');
   const [outputText, setOutputText] = useState("");
   const [interim, setInterim] = useState("");
   const [error, setError] = useState("");
+  const [state, setState] = useState("idle");
+  //idle, started, stopped, ended
 
   useEffect(() => {
     recognition.onresult = function(event) {
@@ -27,8 +30,7 @@ export const useRecognizer = () => {
           interim_transcript += event.results[i][0].transcript;
         }
       }
-    
-      console.log(interim_transcript);
+
       if(interim_transcript){
         setInterim(interim_transcript);
       }
@@ -39,26 +41,27 @@ export const useRecognizer = () => {
     }
 
     recognition.onend = (evt) => {
-      console.log(evt);
-      alert("end");
+      setState('ended');
     }
 
     recognition.onspeechend = (evt) => {
-      console.log(evt);
-      alert('speech end');
+      setState('ended');
+    }
+
+    recognition.onerror = (evt) => {
+      setError(evt.error)
     }
   }, [])
   
   const startRecognizer = () => {
-    console.log(recognition);
+    setState('started');
     recognition.start();
   }
 
   const endRecognizer = () => {
-    //등록이 될때 어떻게 되나
-    console.log(recognition);
+    setState('stopped');
     recognition.stop()
   }
 
-  return [outputText, interim, startRecognizer, endRecognizer, error]
+  return [outputText, interim, startRecognizer, endRecognizer, error, state]
 }

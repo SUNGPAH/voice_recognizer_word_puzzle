@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const [step, setStep] = useState(0);
   const [gameState, setGameState] = useState('idle');
-  const [outputText, interim, startRecognizer, endRecognizer, error] = useRecognizer();
+  const [outputText, interim, startRecognizer, endRecognizer, error, state] = useRecognizer();
 
   const arr = [
     {
@@ -134,6 +134,12 @@ function App() {
         <div className="pt16">
           {renderCard()}
         </div>
+      }
+
+      {state}
+
+      {error &&
+        <span className="color_red">!{error}!</span>
       }
       <ToastContainer/>
     </div>
