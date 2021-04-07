@@ -13,6 +13,19 @@ webkitSpeechRecognition -> google chrome provider
 
 # Voice Recognizer without library
 
+상황에 따라서, 훅스 디자인의 스테이트를 하나로 모아도 좋습니다.
+ex)
+
+```
+recognizerState = {
+  finalOutput,
+  interimOutput,
+  state,
+}
+error
+...
+```
+
 ```
 import React, {useEffect, useState} from 'react';
 
@@ -77,7 +90,7 @@ export const useRecognizer = () => {
     setState('stopped');
     recognition.stop()
   }
-
+  //output text를 하나로 해도 될듯. //state를..
   return [outputText, interim, startRecognizer, endRecognizer, error, state]
 }
 ```
