@@ -1,3 +1,14 @@
+# install
+```
+npm install 
+```
+외부라이브러리를 사용하지 않았습니다.
+
+```
+var SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition
+```
+
+webkitSpeechRecognition -> google chrome provider
 
 
 # Voice Recognizer without library

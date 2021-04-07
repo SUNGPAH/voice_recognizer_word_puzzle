@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+var SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition 
 
 var recognition;
 recognition = new SpeechRecognition();
